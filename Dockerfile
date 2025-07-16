@@ -9,8 +9,8 @@ WORKDIR /app/frontend
 # Copiar package files del frontend
 COPY frontend/package*.json ./
 
-# Instalar dependencias de Node.js
-RUN npm ci --only=production
+# Limpiar caché de npm y instalar dependencias (incluyendo devDependencies para el build)
+RUN npm cache clean --force && npm install
 
 # Copiar código fuente del frontend
 COPY frontend/ .
