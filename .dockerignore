@@ -1,0 +1,58 @@
+# Git
+.git
+.gitignore
+
+# Documentación
+README.md
+*.md
+WRITEUP.md
+DOCKER.md
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Node modules del frontend (se instalan en build)
+frontend/node_modules
+frontend/.vite
+frontend/dist
+
+# Backend dockerfiles individuales
+backend/Dockerfile
+frontend/Dockerfile
+
+# Archivos temporales
+*.tmp
+*.temp
+.cache
+.env.local
+.env.*.local
+
+# Zone identifier files (Windows WSL)
+*.Zone.Identifier
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache
+
+# Exploit files
+exploit.py

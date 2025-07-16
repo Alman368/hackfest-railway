@@ -7,7 +7,7 @@ import time
 import random
 import string
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/dist', static_url_path='')
 CORS(app)
 
 # Función de cifrado Caesar para las pistas
@@ -43,7 +43,31 @@ FESTIVAL_DATA = {
 }
 
 @app.route('/')
-def index():
+def serve_index():
+    """Sirve el frontend React desde index.html"""
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static_files(path):
+    """Sirve archivos estáticos del frontend o redirige a index.html para React Router"""
+    # Rutas que NO deben ser manejadas por el frontend
+    api_routes = ['api', 'config', 'hints', 'robots.txt', 'uploads']
+
+    # Si la ruta empieza con alguna de las rutas de API, no la manejes aquí
+    if any(path.startswith(route) for route in api_routes):
+        # Retorna 404 para que Flask continúe buscando en otras rutas
+        from flask import abort
+        abort(404)
+
+    try:
+        return send_from_directory(app.static_folder, path)
+    except:
+        # Si el archivo no existe, redirigir a index.html para React Router
+        return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/api/festival-status')
+def festival_status():
+    """Estado del festival (funcionalidad original de /)"""
     return jsonify({
         "festival": FESTIVAL_DATA,
         "warning": "⚠️ SISTEMA COMPROMETIDO ⚠️",
@@ -310,4 +334,6 @@ def system_info():
     })
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Railway usa la variable de entorno PORT
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
