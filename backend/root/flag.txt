@@ -1,0 +1,19 @@
+HACKFEST{y4ml_rce_si_has_llegado_eres_god_freeeee}
+
+🎉 ¡FELICIDADES! Has completado exitosamente el CTF HackFest 2025.
+
+Vulnerabilidades explotadas:
+✅ Cifrado Caesar descifrado
+✅ Vulnerabilidad PyYAML RCE identificada y explotada
+✅ Ejecución remota de código conseguida
+✅ Escalada de privilegios REAL completada
+✅ Exfiltración de datos conseguida
+
+Técnicas utilizadas:
+🔍 Reconocimiento y enumeración del sistema
+🔓 Escalada de privilegios usando GTFObins o técnicas similares
+📤 Exfiltración de la flag a través de directorio web-accesible
+🎯 Metodología de pentesting del mundo real
+
+Has salvado el festival y protegido los datos de los asistentes.
+¡Eres un verdadero maestro de la ciberseguridad! 🎯🔒

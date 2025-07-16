@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+    networks:
+      - hackfest-network
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - hackfest-network
+    restart: unless-stopped
+
+networks:
+  hackfest-network:
+    driver: bridge
+
+volumes:
+  node_modules:

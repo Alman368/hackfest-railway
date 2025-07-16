@@ -1,0 +1,6 @@
+# Sistema de archivos simulado
+/root/flag.txt - FLAG PRINCIPAL (requiere privilegios root)
+/etc/passwd - Información de usuarios
+/etc/shadow - Contraseñas hash (requiere root)
+/var/www/html - Directorio web accesible
+./static - Directorio para exfiltración de datos

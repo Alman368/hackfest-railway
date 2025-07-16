@@ -1,0 +1,333 @@
+.event-preview {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #2d3748;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.preview-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 60px 40px;
+}
+
+.hero-content {
+  color: white;
+  max-width: 800px;
+  width: 100%;
+}
+
+.event-icon-large {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.preview-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+}
+
+.preview-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.5;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.preview-content {
+  padding: 60px 0;
+}
+
+.content-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.description-section h2,
+.artists-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 20px;
+}
+
+.description-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4a5568;
+}
+
+.artists-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.artist-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.event-details {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.event-details h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 25px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: #4a5568;
+  font-size: 15px;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-item svg {
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.purchase-section {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.price-display {
+  margin-bottom: 25px;
+}
+
+.price-label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.purchase-button {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.purchase-button:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Error State */
+.event-preview.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 40px;
+}
+
+.event-preview.error .back-button {
+  position: relative;
+  top: auto;
+  left: auto;
+  margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 30px;
+  }
+
+  .sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-button {
+    top: 15px;
+    left: 15px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .preview-hero {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .hero-overlay {
+    padding: 40px 20px;
+  }
+
+  .preview-title {
+    font-size: 2rem;
+  }
+
+  .event-icon-large {
+    font-size: 3rem;
+  }
+
+  .preview-subtitle {
+    font-size: 1rem;
+  }
+
+  .content-grid {
+    padding: 0 20px;
+  }
+
+  .preview-content {
+    padding: 40px 0;
+  }
+
+  .event-details,
+  .purchase-section {
+    padding: 25px;
+  }
+
+  .price-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-overlay {
+    padding: 30px 15px;
+  }
+
+  .preview-title {
+    font-size: 1.8rem;
+  }
+
+  .event-icon-large {
+    font-size: 2.5rem;
+  }
+
+  .content-grid {
+    padding: 0 15px;
+    gap: 30px;
+  }
+
+  .main-content {
+    gap: 30px;
+  }
+
+  .description-section h2,
+  .artists-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .description-section p {
+    font-size: 1rem;
+  }
+
+  .event-details,
+  .purchase-section {
+    padding: 20px;
+  }
+}
