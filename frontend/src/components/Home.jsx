@@ -87,30 +87,30 @@ function Home() {
     {
       timestamp: "2025-01-10 15:47:23",
       source: "192.168.1.127",
-      destination: "hackfest.local",
+      destination: "hackfest-railway-production.up.railway.app",
       protocol: "HTTP POST",
       path: "/jvumpn",
-      payload: "Johkhizpvu lhkwvpua pz h khjrtlu mvby jvumpn chyz",
+      payload: "Jvumpnbyhapvu lukwvpua pz cbsulyhisl mvy fhts whyzpun",
       status: "ENCRYPTED",
       severity: "HIGH"
     },
     {
       timestamp: "2025-01-10 15:48:11",
       source: "10.0.0.88",
-      destination: "hackfest.local",
+      destination: "hackfest-railway-production.up.railway.app",
       protocol: "HTTP",
-      path: "/admin/logs",
-      payload: "Phts whyzly hjjlwaz hwwspjhapvu-u-phts jvualua afw",
+      path: "/api/hints",
+      payload: "Fhts whyzly hjjlwaz hwwspjhapvu-e-fhts jvualua afwl",
       status: "INTERCEPTED",
       severity: "CRITICAL"
     },
     {
       timestamp: "2025-01-10 15:49:45",
       source: "172.16.0.42",
-      destination: "hackfest.local",
+      destination: "hackfest-railway-production.up.railway.app",
       protocol: "TCP",
-      path: "/system/config",
-      payload: "Buzzhml svhkly hssvdz viqlja hwwsf ltljbapvu jvkl",
+      path: "/api/system",
+      payload: "Buzhml svhkly hssvdz viqlja hwwsf leljbapvu jvkl",
       status: "COMPROMISED",
       severity: "CRITICAL"
     }
